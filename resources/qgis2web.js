@@ -8,8 +8,9 @@ var map = new ol.Map({
     })
 });
 
-//initial view - epsg:3857 coordinates if not "Match project CRS"
-map.getView().fit([15685226.741739, 4613114.098135, 15692580.637673, 4617549.007290], map.getSize());
+// Initial view: Sendai Station. Use the label thresholds for each screen type.
+map.getView().setCenter(ol.proj.fromLonLat([140.8823, 38.2601]));
+map.getView().setZoom(window.innerWidth <= 620 ? 14 : 14.5);
 
 //full zooms only
 map.getView().setProperties({constrainResolution: false});
