@@ -22,7 +22,7 @@ var lyr_sendaikoazamap_1 = new ol.layer.Vector({
                 declutter: false,
                 source:jsonSource_sendaikoazamap_1, 
                 style: style_sendaikoazamap_1,
-                popuplayertitle: 'sendai-koaza-map',
+                popuplayertitle: '小字',
                 interactive: true,
     title: 'sendai-koaza-map<br />\
     <img src="styles/legend/sendaikoazamap_1_0.png" /> 仙台<br />\
@@ -42,9 +42,9 @@ var lyr_sendaioazamap_2 = new ol.layer.Vector({
                 declutter: false,
                 source:jsonSource_sendaioazamap_2, 
                 style: style_sendaioazamap_2,
-                popuplayertitle: 'sendai-oaza-map',
+                popuplayertitle: '大字',
                 interactive: false,
-                title: '<img src="styles/legend/sendaioazamap_2.png" /> sendai-oaza-map'
+                title: '<img src="styles/legend/sendaioazamap_2.png" /> 大字'
             });
 
 lyr__0.setVisible(true);lyr_sendaikoazamap_1.setVisible(true);lyr_sendaioazamap_2.setVisible(true);
