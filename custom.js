@@ -8,120 +8,106 @@ const LABEL_SCALE_RATIO = 0.8;
 const HEADER_TITLE = "仙台市小字地図"; 
 const HEADER_TWITTER = "X(Twitter): @raimu_sendai"; 
 
-// 二重適用を防ぐフラグ
-let isCustomStyleApplied = false;
-
-// 🌟 地図のカスタムスタイルを即時適用する関数
+// 🌟 地図のカスタムスタイルを適用する関数
 function applyCustomMapSettings() {
-    if (isCustomStyleApplied) return;
-    if (typeof map === 'undefined') return;
+    if (typeof map === 'undefined' || !map.getLayers) return;
 
     map.getLayers().forEach((layer) => {
+        // タイルレイヤー（背景地図など）は除外
         if (layer instanceof ol.layer.Tile) return;
 
-        if (typeof layer.getStyle === 'function') {
-            const originalStyle = layer.getStyle();
-            if (!originalStyle) return;
-
-            layer.setStyle(function(feature, resolution) {
-                let styles = (typeof originalStyle === 'function') 
-                    ? originalStyle(feature, resolution) 
-                    : originalStyle;
-
-                if (!styles) return styles;
-
-                const styleArray = Array.isArray(styles) ? styles : [styles];
-                const currentZoom = map.getView().getZoom();
-
-                styleArray.forEach((style) => {
-                    // 1. 【透明度】塗りつぶし（Fill）をさらに薄い0.3（30%）に変更
-                    const fill = style.getFill();
-                    if (fill) {
-                        let color = fill.getColor();
-                        if (color && typeof color === 'string') {
-                            if (typeof ol !== 'undefined' && ol.color && ol.color.asArray) {
-                                let rgba = ol.color.asArray(color).slice();
-                                rgba[3] = 0.3; // 💡 0.5から0.3に変更
-                                fill.setColor(rgba);
-                            }
-                        } else if (Array.isArray(color)) {
-                            let newColor = [...color];
-                            newColor[3] = 0.3; // 💡 0.5から0.3に変更
-                            fill.setColor(newColor);
-                        }
-                    }
-
-                    // 2. 【ラベル制御】
-                    const textStyle = style.getText();
-                    if (textStyle) {
-                        if (typeof textStyle.setScale === 'function') {
-                            textStyle.setScale(LABEL_SCALE_RATIO);
-                        }
-
-                        // 文字の配置を「中央揃え」にする
-                        if (typeof textStyle.setTextAlign === 'function') {
-                            textStyle.setTextAlign('center');
-                        }
-
-                        // 右寄りの原因である「ズレ（オフセット）」を完全に0にする
-                        if (typeof textStyle.setOffsetX === 'function') {
-                            textStyle.setOffsetX(0);
-                        }
-                        if (typeof textStyle.setOffsetY === 'function') {
-                            textStyle.setOffsetY(0);
-                        }
-                        
-                        // 縦方向の基準位置も「真ん中」に揃える
-                        if (typeof textStyle.setTextBaseline === 'function') {
-                            textStyle.setTextBaseline('middle');
-                        }
-
-                        // 表示優先度を最高（無限大）にする
-                        if (typeof textStyle.setPriority === 'function') {
-                            textStyle.setPriority(Infinity); 
-                        }
-                        // はみ出す文字も許可
-                        if (typeof textStyle.setOverflow === 'function') {
-                            textStyle.setOverflow(true);
-                        }
-
-                        // 元のテキスト設定を安全に記憶（バックアップ）
-                        if (!style._originalTextObject) {
-                            style._originalTextObject = textStyle;
-                        }
-
-                        // ズームレベルに応じて「出現」か「消滅」かを切り替える
-                        if (currentZoom >= MIN_ZOOM_FOR_LABEL) {
-                            style.setText(style._originalTextObject);
-                        } else {
-                            style.setText(null);
-                        }
-                    }
-                });
-
-                return styles;
-            });
+        // すでにカスタムスタイルのバックアップがあるか確認
+        if (!layer._originalStyle) {
+            const currentStyle = layer.getStyle();
+            if (!currentStyle) return;
+            layer._originalStyle = currentStyle; // 元のスタイル関数を保存
         }
-    });
 
-    // 拡大縮小の手が止まった瞬間に描き直す
-    map.getView().on('moveend', () => {
-        map.getLayers().forEach((layer) => {
-            if (!(layer instanceof ol.layer.Tile) && typeof layer.changed === 'function') {
-                layer.changed();
-            }
+        const originalStyle = layer._originalStyle;
+
+        // レイヤーのスタイル関数を設定
+        layer.setStyle(function(feature, resolution) {
+            let styles = (typeof originalStyle === 'function') 
+                ? originalStyle(feature, resolution) 
+                : originalStyle;
+
+            if (!styles) return styles;
+
+            const styleArray = Array.isArray(styles) ? styles : [styles];
+            const currentZoom = map.getView().getZoom();
+
+            styleArray.forEach((style) => {
+                // 1. 【透明度】塗りつぶし（Fill）を0.3に変更
+                const fill = style.getFill();
+                if (fill) {
+                    let color = fill.getColor();
+                    if (color && typeof color === 'string') {
+                        if (typeof ol !== 'undefined' && ol.color && ol.color.asArray) {
+                            let rgba = ol.color.asArray(color).slice();
+                            rgba[3] = 0.3;
+                            fill.setColor(rgba);
+                        }
+                    } else if (Array.isArray(color)) {
+                        let newColor = [...color];
+                        newColor[3] = 0.3;
+                        fill.setColor(newColor);
+                    }
+                }
+
+                // 2. 【ラベル制御】
+                const textStyle = style.getText();
+                if (textStyle) {
+                    if (typeof textStyle.setScale === 'function') {
+                        textStyle.setScale(LABEL_SCALE_RATIO);
+                    }
+                    if (typeof textStyle.setTextAlign === 'function') {
+                        textStyle.setTextAlign('center');
+                    }
+                    if (typeof textStyle.setOffsetX === 'function') {
+                        textStyle.setOffsetX(0);
+                    }
+                    if (typeof textStyle.setOffsetY === 'function') {
+                        textStyle.setOffsetY(0);
+                    }
+                    if (typeof textStyle.setTextBaseline === 'function') {
+                        textStyle.setTextBaseline('middle');
+                    }
+                    if (typeof textStyle.setPriority === 'function') {
+                        textStyle.setPriority(Infinity); 
+                    }
+                    if (typeof textStyle.setOverflow === 'function') {
+                        textStyle.setOverflow(true);
+                    }
+
+                    if (!style._originalTextObject) {
+                        style._originalTextObject = textStyle;
+                    }
+
+                    // ズームレベルに応じた表示切替
+                    if (currentZoom >= MIN_ZOOM_FOR_LABEL) {
+                        style.setText(style._originalTextObject);
+                    } else {
+                        style.setText(null);
+                    }
+                }
+            });
+
+            return styles;
         });
     });
 
-    // 初回表示を確実に確定させる
+    // 初回再描画の呼び出し
+    refreshVectorLayers();
+}
+
+// ベクターレイヤーを強制的に再描画する関数
+function refreshVectorLayers() {
+    if (typeof map === 'undefined') return;
     map.getLayers().forEach((layer) => {
         if (!(layer instanceof ol.layer.Tile) && typeof layer.changed === 'function') {
             layer.changed();
         }
     });
-
-    isCustomStyleApplied = true;
-    console.log("ポリゴン透明度0.3を適用しました。");
 }
 
 // 🌟 上部ヘッダーを作成して画面に設置する関数
@@ -148,14 +134,12 @@ function createTopHeader() {
     header.style.pointerEvents = 'auto';
     header.style.fontFamily = 'sans-serif';
 
-    // 左側：仙台市小字地図（大・24px）
     const leftText = document.createElement('div');
     leftText.style.fontSize = '24px';
     leftText.style.color = '#111111';
     leftText.style.fontWeight = 'bold';
     leftText.textContent = HEADER_TITLE;
 
-    // 右側：X(Twitter): @raimu_sendai
     const rightText = document.createElement('div');
     rightText.style.fontSize = '13px';
     rightText.style.color = '#444444';
@@ -167,8 +151,18 @@ function createTopHeader() {
     document.body.appendChild(header);
 }
 
-// ⚡ 読み込み完了と同時に無駄なタイマーなしで最速実行
-window.addEventListener('DOMContentLoaded', () => {
+// ⚡ ロード監視とマップ準備完了を待ってから実行
+window.addEventListener('load', () => {
     createTopHeader();
-    applyCustomMapSettings();
+
+    // qgis2webの map 変数が確実に生成されるのを待機して適用
+    const checkMapExist = setInterval(() => {
+        if (typeof map !== 'undefined') {
+            clearInterval(checkMapExist);
+            applyCustomMapSettings();
+
+            // ズーム終了時にレイヤー更新を登録
+            map.getView().on('moveend', refreshVectorLayers);
+        }
+    }, 100);
 });
