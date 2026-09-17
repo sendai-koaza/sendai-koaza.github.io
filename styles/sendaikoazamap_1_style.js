@@ -79,7 +79,8 @@ var style_sendaikoazamap_1 = function(feature, resolution){
     var repeat = 0;
     var placement = 'point';
     labelFont = "15px sans-serif";
-    if (feature.get("小字") !== null && resolution > 0 && resolution < 38.22) {
+    var koazaLabelResolution = window.innerWidth <= 620 ? 9.56 : 6.76;
+    if (feature.get("小字") !== null && resolution > 0 && resolution < koazaLabelResolution) {
         labelText = String(feature.get("小字"));
     }
     

@@ -52,11 +52,11 @@
                 <span>仙台小字地図</span><span class="site-x">X: @raimu_sendai</span>
             </a>
             <nav class="site-menu" aria-label="地図メニュー">
-                <button type="button" data-panel-target="layers-panel">レイヤー</button>
                 <button type="button" data-panel-target="legend-panel">凡例</button>
-                <button type="button" data-panel-target="about-panel">この地図について</button>
+                <button type="button" class="about-button" data-panel-target="about-panel" aria-label="この地図について" title="この地図について">i</button>
             </nav>
         </header>
+        <button type="button" class="layers-float" data-panel-target="layers-panel">レイヤー</button>
         <div id="map">
             <div id="popup" class="ol-popup">
                 <a href="#" id="popup-closer" class="ol-popup-closer"></a>

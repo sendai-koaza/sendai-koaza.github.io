@@ -22,6 +22,7 @@
     function updateZoomStatus() { zoomStatus.textContent = 'z ' + map.getView().getZoom().toFixed(1); }
     map.on('moveend', updateZoomStatus);
     updateZoomStatus();
+    window.addEventListener('resize', function () { lyr_sendaikoazamap_1.changed(); });
     document.querySelectorAll('[data-layer]').forEach(function (input) { input.addEventListener('change', function () { layerByKey[input.dataset.layer].setVisible(input.checked); }); });
     document.querySelector('.background-opacity input').addEventListener('input', function (event) { lyr__0.setOpacity(Number(event.target.value) / 100); });
     document.querySelector('.map-home').addEventListener('click', function () { map.getView().fit(initialExtent, { size: map.getSize(), duration: 350, padding: [82, 20, 20, 20] }); closePanels(); });
