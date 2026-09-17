@@ -12,7 +12,7 @@ var map = new ol.Map({
 map.getView().fit([15685226.741739, 4613114.098135, 15692580.637673, 4617549.007290], map.getSize());
 
 //full zooms only
-map.getView().setProperties({constrainResolution: true});
+map.getView().setProperties({constrainResolution: false});
 
 //change cursor
 function pointerOnFeature(evt) {

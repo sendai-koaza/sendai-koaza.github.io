@@ -8,7 +8,7 @@ var wms_layers = [];
             
             source: new ol.source.XYZ({
             attributions: ' ',
-                url: 'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'
+                url: 'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png'
             })
         });
 var format_sendaikoazamap_1 = new ol.format.GeoJSON();
