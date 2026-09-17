@@ -19,6 +19,9 @@ var style_sendaioazamap_2 = function(feature, resolution){
     var overflow = false;
     var repeat = 0;
     var placement = 'point';
+    labelFont = "bold 26px sans-serif";
+    bufferColor = "rgba(255,255,255,0.78)";
+    bufferWidth = 4;
     if (feature.get("大字") !== null) {
         labelText = String(feature.get("大字"));
     }
