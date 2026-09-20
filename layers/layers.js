@@ -30,7 +30,9 @@ var lyr_sendaikoazamap_1 = new ol.layer.Vector({
     <img src="styles/legend/sendaikoazamap_1_2.png" /> 蒲町<br />\
     <img src="styles/legend/sendaikoazamap_1_3.png" /> 伊在<br />\
     <img src="styles/legend/sendaikoazamap_1_4.png" /> 六丁目<br />\
-    <img src="styles/legend/sendaikoazamap_1_5.png" /> <br />' });
+    <img src="styles/legend/sendaikoazamap_1_5.png" /> 霞目<br />\
+    <img src="styles/legend/sendaikoazamap_1_6.png" /> 長喜城<br />\
+    <img src="styles/legend/sendaikoazamap_1_7.png" /> <br />' });
 var format_sendaioazamap_2 = new ol.format.GeoJSON();
 var features_sendaioazamap_2 = format_sendaioazamap_2.readFeatures(json_sendaioazamap_2, 
             {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
