@@ -9,7 +9,7 @@ function categories_sendaikoazamap_1(feature, value, size, resolution, labelText
     switch(valueStr) {
         case '仙台':
             return [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(178,223,138,' + koazaPolygonOpacity + ')'}),
+        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(110,218,166,' + koazaPolygonOpacity + ')'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
@@ -18,7 +18,7 @@ function categories_sendaikoazamap_1(feature, value, size, resolution, labelText
 
         case '南小泉':
             return [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(253,191,111,' + koazaPolygonOpacity + ')'}),
+        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(222,69,89,' + koazaPolygonOpacity + ')'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
@@ -27,7 +27,7 @@ function categories_sendaikoazamap_1(feature, value, size, resolution, labelText
 
         case '蒲町':
             return [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(251,154,153,' + koazaPolygonOpacity + ')'}),
+        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(110,202,96,' + koazaPolygonOpacity + ')'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
@@ -36,7 +36,7 @@ function categories_sendaikoazamap_1(feature, value, size, resolution, labelText
 
         case '伊在':
             return [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(116,216,213,' + koazaPolygonOpacity + ')'}),
+        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(195,219,100,' + koazaPolygonOpacity + ')'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
@@ -45,7 +45,7 @@ function categories_sendaikoazamap_1(feature, value, size, resolution, labelText
 
         case '六丁目':
             return [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(133,182,111,' + koazaPolygonOpacity + ')'}),
+        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(48,75,229,' + koazaPolygonOpacity + ')'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
@@ -54,7 +54,7 @@ function categories_sendaikoazamap_1(feature, value, size, resolution, labelText
 
         case '霞目':
             return [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(182,111,157,' + koazaPolygonOpacity + ')'}),
+        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(202,47,171,' + koazaPolygonOpacity + ')'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
@@ -63,7 +63,15 @@ function categories_sendaikoazamap_1(feature, value, size, resolution, labelText
 
         case '長喜城':
             return [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(133,182,111,' + koazaPolygonOpacity + ')'}),
+        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(239,193,140,' + koazaPolygonOpacity + ')'}),
+        text: createTextStyle(feature, resolution, labelText, labelFont,
+                              labelFill, placement, bufferColor,
+                              bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
+    })];
+			break;
+        case '南目':
+            return [ new ol.style.Style({
+        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(125,211,230,' + koazaPolygonOpacity + ')'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
@@ -71,7 +79,7 @@ function categories_sendaikoazamap_1(feature, value, size, resolution, labelText
 			break;
 default:
             return [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(166,206,227,' + koazaPolygonOpacity + ')'}),
+        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(174,129,213,' + koazaPolygonOpacity + ')'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
