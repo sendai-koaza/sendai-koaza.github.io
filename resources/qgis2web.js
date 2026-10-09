@@ -538,6 +538,11 @@ map.once('rendercomplete', function() {
     var layerAttrs = Array.from(bottomAttributionUl.querySelectorAll('li'))
       .map(function(li) { return li.innerHTML.trim(); }).filter(Boolean);
     var attribHtml = `
+var attribHtml = `
+    <a href="https://maps.gsi.go.jp/development/ichiran.html"
+       target="_blank" rel="noopener">地理院タイル</a> &middot;
+    <a href="https://www.openstreetmap.org/copyright"
+       target="_blank" rel="noopener">OpenStreetMap</a> &middot;
     <a href="https://github.com/qgis2web/qgis2web">qgis2web</a> &middot;
     <a href="https://openlayers.org/">OpenLayers</a> &middot;
     <a href="https://qgis.org/">QGIS</a>`;
