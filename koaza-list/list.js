@@ -14,14 +14,14 @@
     var headers = rows.length ? Object.keys(rows[0]) : [];
     options = options || {};
     table.innerHTML = '<thead><tr>' + headers.map(function (header) { return '<th scope="col">' + escapeHtml(header) + '</th>'; }).join('') + '</tr></thead><tbody>' + rows.map(function (row, index) {
-      var listNumber = String(index).padStart(3, '0');
+      var listNumber = String(index + (options.startNumber || 0)).padStart(3, '0');
       var rowId = options.rowPrefix ? ' id="' + options.rowPrefix + listNumber + '"' : '';
       return '<tr' + rowId + '>' + headers.map(function (header) {
         var value = escapeHtml(row[header]);
         if (options.linkNames && header === '地名') {
-          var number = 'No.' + listNumber;
+          var number = options.showNumbers === false ? '' : '<span class="place-number">No.' + listNumber + '</span>';
           var mapName = data.mapAliases[row[header]] || row[header];
-          return '<td><span class="place-number">' + number + '</span><a class="place-link" href="../?koaza=' + encodeURIComponent(mapName) + '">' + value + '</a></td>';
+          return '<td>' + number + '<a class="place-link" href="../?koaza=' + encodeURIComponent(mapName) + '">' + value + '</a></td>';
         }
         if (header === 'リンク' && row[header]) {
           return '<td><a href="' + value + '" target="_blank" rel="noopener">開く</a></td>';
@@ -40,7 +40,8 @@
 
   document.getElementById('list-notes').innerHTML = data.notes.map(function (note) { return '<p>' + escapeHtml(note) + '</p>'; }).join('');
   document.getElementById('list-title').textContent = data.title + 'の小字一覧';
-  renderTable('main-list', data.main, { rowPrefix: 'koaza-', linkNames: true });
+  renderTable('oaza-list', [data.main[0]], { linkNames: true, showNumbers: false });
+  renderTable('main-list', data.main.slice(1), { rowPrefix: 'koaza-', linkNames: true, startNumber: 1 });
   renderTable('extra-list', data.extra);
   renderTable('references-list', data.references);
 
