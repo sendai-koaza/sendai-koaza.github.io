@@ -14,11 +14,12 @@
     var headers = rows.length ? Object.keys(rows[0]) : [];
     options = options || {};
     table.innerHTML = '<thead><tr>' + headers.map(function (header) { return '<th scope="col">' + escapeHtml(header) + '</th>'; }).join('') + '</tr></thead><tbody>' + rows.map(function (row, index) {
-      var rowId = options.rowPrefix ? ' id="' + options.rowPrefix + String(index + 1).padStart(3, '0') + '"' : '';
+      var listNumber = String(index).padStart(3, '0');
+      var rowId = options.rowPrefix ? ' id="' + options.rowPrefix + listNumber + '"' : '';
       return '<tr' + rowId + '>' + headers.map(function (header) {
         var value = escapeHtml(row[header]);
         if (options.linkNames && header === '地名') {
-          var number = 'No.' + String(index + 1).padStart(3, '0');
+          var number = 'No.' + listNumber;
           var mapName = data.mapAliases[row[header]] || row[header];
           return '<td><span class="place-number">' + number + '</span><a class="place-link" href="../?koaza=' + encodeURIComponent(mapName) + '">' + value + '</a></td>';
         }
