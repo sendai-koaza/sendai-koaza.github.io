@@ -42,4 +42,19 @@
   renderTable('main-list', data.main, { rowPrefix: 'koaza-', linkNames: true });
   renderTable('extra-list', data.extra);
   renderTable('references-list', data.references);
+
+  function fitTablesToDesktop() {
+    if (window.innerWidth <= 620) return;
+    document.querySelectorAll('.list-table').forEach(function (table) {
+      var wrapper = table.parentElement;
+      var size = 12;
+      table.style.fontSize = size + 'px';
+      while (wrapper.scrollWidth > wrapper.clientWidth && size > 6) {
+        size -= 0.5;
+        table.style.fontSize = size + 'px';
+      }
+    });
+  }
+  fitTablesToDesktop();
+  window.addEventListener('resize', fitTablesToDesktop);
 }());
