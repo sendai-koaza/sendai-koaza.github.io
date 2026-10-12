@@ -15,6 +15,24 @@ map.getView().setZoom(window.innerWidth <= 620 ? 14 : 14.5);
 //full zooms only
 map.getView().setProperties({constrainResolution: false});
 
+// Open the matching polygon when arriving from the koaza list.
+function showKoazaFromList() {
+    var koazaName = new URLSearchParams(window.location.search).get('koaza');
+    if (!koazaName) return;
+    var feature = lyr_sendaikoazamap_1.getSource().getFeatures().find(function(item) {
+        return item.get('大字') === '仙台' && item.get('小字') === koazaName;
+    });
+    if (feature) {
+        map.getView().fit(feature.getGeometry().getExtent(), {
+            size: map.getSize(),
+            padding: [110, 40, 40, 40],
+            maxZoom: 17,
+            duration: 350
+        });
+    }
+}
+showKoazaFromList();
+
 //change cursor
 function pointerOnFeature(evt) {
     if (evt.dragging) {
@@ -193,6 +211,15 @@ function createPopupField(currentFeature, currentFeatureKeys, layer) {
 				}
 			}
             popupText += '<tr>' + popupField + '</tr>';
+        }
+    }
+    if (layer === lyr_sendaikoazamap_1 && currentFeature.get('大字') === '仙台' && window.KOAZA_LIST_DATA) {
+        var koazaName = currentFeature.get('小字');
+        var listIndex = window.KOAZA_LIST_DATA.main.findIndex(function(item) {
+            return item['地名'] === koazaName || window.KOAZA_LIST_DATA.mapAliases[item['地名']] === koazaName;
+        });
+        if (listIndex !== -1) {
+            popupText += '<tr class="koaza-list-popup-link"><td colspan="2"><a href="./koaza-list/#koaza-' + String(listIndex + 1).padStart(3, '0') + '">小字一覧で見る</a></td></tr>';
         }
     }
     return popupText;
