@@ -16,7 +16,8 @@
     table.innerHTML = '<thead><tr>' + headers.map(function (header) { return '<th scope="col">' + escapeHtml(header) + '</th>'; }).join('') + '</tr></thead><tbody>' + rows.map(function (row, index) {
       var listNumber = String(index + (options.startNumber || 0)).padStart(3, '0');
       var rowId = options.rowPrefix ? ' id="' + options.rowPrefix + listNumber + '"' : '';
-      return '<tr' + rowId + '>' + headers.map(function (header) {
+      var rowClass = options.emphasizeFirst && index === 0 ? ' class="oaza-row"' : '';
+      return '<tr' + rowId + rowClass + '>' + headers.map(function (header) {
         var value = escapeHtml(row[header]);
         if (options.linkNames && header === '地名') {
           var number = options.showNumbers === false ? '' : '<span class="place-number">No.' + listNumber + '</span>';
@@ -40,8 +41,7 @@
 
   document.getElementById('list-notes').innerHTML = data.notes.map(function (note) { return '<p>' + escapeHtml(note) + '</p>'; }).join('');
   document.getElementById('list-title').textContent = data.title + 'の小字一覧';
-  renderTable('oaza-list', [data.main[0]], { linkNames: true, showNumbers: false });
-  renderTable('main-list', data.main.slice(1), { rowPrefix: 'koaza-', linkNames: true, startNumber: 1 });
+  renderTable('main-list', data.main, { rowPrefix: 'koaza-', linkNames: true, emphasizeFirst: true });
   renderTable('extra-list', data.extra);
   renderTable('references-list', data.references);
 
