@@ -25,7 +25,7 @@
           return '<td>' + number + '<a class="place-link" href="' + data.mapBase + '?oaza=' + encodeURIComponent(data.oaza) + '&koaza=' + encodeURIComponent(mapName) + '">' + value + '</a></td>';
         }
         if (header === 'リンク' && row[header]) {
-          return '<td><a href="' + value + '" target="_blank" rel="noopener">開く</a></td>';
+          return '<td><a href="' + value + '" target="_blank" rel="noopener">' + value + '</a></td>';
         }
         return '<td>' + value + '</td>';
       }).join('') + '</tr>';
