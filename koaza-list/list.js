@@ -22,7 +22,7 @@
         if (options.linkNames && header === '地名') {
           var number = options.showNumbers === false ? '' : '<span class="place-number">No.' + listNumber + '</span>';
           var mapName = data.mapAliases[row[header]] || row[header];
-          return '<td>' + number + '<a class="place-link" href="../?koaza=' + encodeURIComponent(mapName) + '">' + value + '</a></td>';
+          return '<td>' + number + '<a class="place-link" href="' + data.mapBase + '?oaza=' + encodeURIComponent(data.oaza) + '&koaza=' + encodeURIComponent(mapName) + '">' + value + '</a></td>';
         }
         if (header === 'リンク' && row[header]) {
           return '<td><a href="' + value + '" target="_blank" rel="noopener">開く</a></td>';
@@ -34,7 +34,7 @@
 
   document.getElementById('area-navigation').innerHTML = data.navigation.map(function (group) {
     var places = group.places.map(function (place) {
-      return place === data.title ? '<a class="area-link" href="#list-title">' + escapeHtml(place) + '</a>' : '<span class="area-pending">' + escapeHtml(place) + '</span>';
+      return data.pageLinks[place] ? '<a class="area-link" href="' + data.pageLinks[place] + '">' + escapeHtml(place) + '</a>' : '<span class="area-pending">' + escapeHtml(place) + '</span>';
     }).join('');
     return '<section class="area-group"><span class="area-group__name">' + escapeHtml(group.ward || '仙台城下') + '</span><div class="area-group__places">' + places + '</div></section>';
   }).join('');
@@ -44,6 +44,8 @@
   renderTable('main-list', data.main, { rowPrefix: 'koaza-', linkNames: true, emphasizeFirst: true });
   renderTable('extra-list', data.extra);
   renderTable('references-list', data.references);
+  if (!data.extra.length) document.getElementById('extra-section').hidden = true;
+  if (!data.references.length) document.getElementById('references-section').hidden = true;
 
   function fitTablesToDesktop() {
     if (window.innerWidth <= 620) return;

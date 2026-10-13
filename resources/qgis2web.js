@@ -17,10 +17,12 @@ map.getView().setProperties({constrainResolution: false});
 
 // Open the matching polygon when arriving from the koaza list.
 function showKoazaFromList() {
-    var koazaName = new URLSearchParams(window.location.search).get('koaza');
+    var listParams = new URLSearchParams(window.location.search);
+    var koazaName = listParams.get('koaza');
+    var oazaName = listParams.get('oaza') || '仙台';
     if (!koazaName) return;
     var features = lyr_sendaikoazamap_1.getSource().getFeatures().filter(function(item) {
-        return item.get('大字') === '仙台' && (koazaName === '仙台' || item.get('小字') === koazaName);
+        return item.get('大字') === oazaName && (koazaName === oazaName || item.get('小字') === koazaName);
     });
     if (features.length) {
         var extent = ol.extent.createEmpty();
@@ -217,13 +219,18 @@ function createPopupField(currentFeature, currentFeatureKeys, layer) {
             popupText += '<tr>' + popupField + '</tr>';
         }
     }
-    if (layer === lyr_sendaikoazamap_1 && currentFeature.get('大字') === '仙台' && window.KOAZA_LIST_DATA) {
+    if (layer === lyr_sendaikoazamap_1 && window.KOAZA_LIST_PAGE_INDEX) {
+        var oazaName = currentFeature.get('大字');
         var koazaName = currentFeature.get('小字');
-        var listIndex = window.KOAZA_LIST_DATA.main.findIndex(function(item) {
-            return item['地名'] === koazaName || window.KOAZA_LIST_DATA.mapAliases[item['地名']] === koazaName;
-        });
-        if (listIndex !== -1) {
-            popupText += '<tr class="koaza-list-popup-link"><td colspan="2"><a href="./koaza-list/#koaza-' + String(listIndex).padStart(3, '0') + '">小字一覧で見る</a></td></tr>';
+        var pageData = window.KOAZA_LIST_PAGE_INDEX[oazaName];
+        if (pageData && koazaName) {
+            var listName = Object.keys(pageData.items).find(function(name) {
+                return name === koazaName || pageData.mapAliases[name] === koazaName;
+            });
+            if (listName !== undefined) {
+                var listIndex = pageData.items[listName];
+                popupText += '<tr class="koaza-list-popup-link"><td colspan="2"><a href="' + pageData.path + '#koaza-' + String(listIndex).padStart(3, '0') + '">小字一覧で見る</a></td></tr>';
+            }
         }
     }
     return popupText;
