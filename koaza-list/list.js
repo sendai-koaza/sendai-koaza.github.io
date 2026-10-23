@@ -44,8 +44,8 @@
   renderTable('main-list', data.main, { rowPrefix: 'koaza-', linkNames: true, emphasizeFirst: true });
   renderTable('extra-list', data.extra);
   renderTable('references-list', data.references);
-  if (!data.extra.length) document.getElementById('extra-section').hidden = true;
-  if (!data.references.length) document.getElementById('references-section').hidden = true;
+  document.getElementById('extra-section').hidden = !data.extra.length;
+  document.getElementById('references-section').hidden = !data.references.length;
 
   function fitTablesToDesktop() {
     if (window.innerWidth <= 620) return;

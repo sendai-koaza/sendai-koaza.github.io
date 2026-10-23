@@ -69,6 +69,7 @@ function categories_sendaikoazamap_1(feature, value, size, resolution, labelText
                               bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
     })];
 			break;
+
         case '南目':
             return [ new ol.style.Style({
         stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(125,211,230,' + koazaPolygonOpacity + ')'}),
@@ -80,6 +81,15 @@ function categories_sendaikoazamap_1(feature, value, size, resolution, labelText
 default:
             return [ new ol.style.Style({
         stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(174,129,213,' + koazaPolygonOpacity + ')'}),
+        text: createTextStyle(feature, resolution, labelText, labelFont,
+                              labelFill, placement, bufferColor,
+                              bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
+    })];
+			break;
+
+        case '苦竹':
+            return [ new ol.style.Style({
+        stroke: new ol.style.Stroke({color: 'rgba(227,26,28,' + koazaBoundaryOpacity + ')', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.9}),fill: new ol.style.Fill({color: 'rgba(242,126,124,' + koazaPolygonOpacity + ')'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
