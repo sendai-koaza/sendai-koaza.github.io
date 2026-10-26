@@ -105,7 +105,7 @@ var style_sendaikoazamap_1 = function(feature, resolution){
     
     var labelText = ""; 
     var value = feature.get("大字");
-    var labelFont = "19.5px \'Open Sans\', sans-serif";
+    var labelFont = "15px sans-serif";
     var labelFill = "#ff0000";
     var bufferColor = "#fafafa";
     var bufferWidth = 3.0;
@@ -115,7 +115,6 @@ var style_sendaikoazamap_1 = function(feature, resolution){
     var overflow = true;
     var repeat = 0;
     var placement = 'point';
-    labelFont = "15px sans-serif";
     var koazaLabelResolution = window.innerWidth <= 620 ? 9.56 : 6.76;
     if (feature.get("小字") !== null && resolution > 0 && resolution < koazaLabelResolution) {
         labelText = String(feature.get("小字"));
