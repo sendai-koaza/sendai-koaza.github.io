@@ -28,6 +28,7 @@ PAGES = [
     {"sheet": "長喜城", "slug": "choukijou", "label": "長喜城村", "oaza": "長喜城"},
     {"sheet": "六丁目", "slug": "rokuchoume", "label": "六丁目村", "oaza": "六丁目"},
     {"sheet": "南目", "slug": "minamime", "label": "南目村", "oaza": "南目"},
+    {"sheet": "苦竹", "slug": "nigatake", "label": "苦竹村", "oaza": "苦竹"},
 ]
 
 COMMON_NOTES = [
